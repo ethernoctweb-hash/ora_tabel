@@ -680,576 +680,166 @@ document.addEventListener(
 
 
         /* ==========================================
-           DOWNLOAD GAMBAR TABEL
-        ========================================== */
+   DOWNLOAD GAMBAR HEADER + TABEL
+========================================== */
 
-        downloadTableBtn.addEventListener(
-            "click",
-            function () {
+downloadTableBtn.addEventListener(
+    "click",
+    function () {
 
-                const table =
-                    document.querySelector(
-                        ".jackpot-table"
+        const page =
+            document.querySelector("#page");
+
+        if (!page) {
+            return;
+        }
+
+        /*
+         * Cek library
+         */
+
+        if (
+            typeof html2canvas === "undefined"
+        ) {
+
+            alert(
+                "Library gambar belum siap. Coba lagi."
+            );
+
+            return;
+        }
+
+        /*
+         * Simpan teks tombol
+         */
+
+        const originalText =
+            this.innerHTML;
+
+        /*
+         * Ubah tombol
+         */
+
+        this.innerHTML =
+            "⏳ <span>MEMBUAT GAMBAR...</span>";
+
+        this.disabled = true;
+
+
+        /*
+         * Buat gambar dari #page
+         *
+         * Karena header + tabel berada
+         * di dalam #page, keduanya akan
+         * ikut masuk ke gambar.
+         */
+
+        html2canvas(
+            page,
+            {
+
+                backgroundColor:
+                    "#ffffff",
+
+                scale: 2,
+
+                useCORS: true,
+
+                allowTaint: false,
+
+                logging: false,
+
+                imageTimeout: 15000
+
+            }
+        )
+        .then(
+            function (canvas) {
+
+                /*
+                 * Buat link download
+                 */
+
+                const link =
+                    document.createElement("a");
+
+
+                /*
+                 * Nama file
+                 */
+
+                link.download =
+                    "daftar-database-jackpot.png";
+
+
+                /*
+                 * Masukkan hasil canvas
+                 */
+
+                link.href =
+                    canvas.toDataURL(
+                        "image/png"
                     );
 
 
-                if (!table) {
+                /*
+                 * Jalankan download
+                 */
 
-                    return;
+                document.body.appendChild(
+                    link
+                );
 
-                }
+                link.click();
+
+                link.remove();
 
 
                 /*
-                 * Cek library
+                 * Kembalikan tombol
                  */
 
-                if (
-                    typeof html2canvas ===
-                    "undefined"
-                ) {
+                downloadTableBtn.innerHTML =
+                    originalText;
 
-                    alert(
-                        "Library gambar belum siap. Coba lagi."
-                    );
-
-                    return;
-
-                }
+                downloadTableBtn.disabled =
+                    false;
 
 
                 /*
-                 * Simpan teks tombol
+                 * Popup berhasil
                  */
 
-                const originalText =
-                    this.innerHTML;
+                showDownloadSuccess();
+
+            }
+        )
+        .catch(
+            function (error) {
+
+                console.error(
+                    "Download error:",
+                    error
+                );
 
 
                 /*
-                 * Ubah tombol
+                 * Kembalikan tombol
                  */
 
-                this.innerHTML =
-                    "⏳ <span>MEMBUAT GAMBAR...</span>";
+                downloadTableBtn.innerHTML =
+                    originalText;
+
+                downloadTableBtn.disabled =
+                    false;
 
 
-                this.disabled = true;
-
-
-                /*
-                 * Buat PNG
-                 */
-
-                html2canvas(
-                    table,
-                    {
-
-                        backgroundColor:
-                            "#ffffff",
-
-                        scale: 2,
-
-                        useCORS: true,
-
-                        logging: false
-
-                    }
-                )
-                .then(
-                    function (canvas) {
-
-
-                        /*
-                         * Buat link
-                         */
-
-                        const link =
-                            document.createElement(
-                                "a"
-                            );
-
-
-                        /*
-                         * Nama file
-                         */
-
-                        link.download =
-                            "daftar-database-jackpot.png";
-
-
-                        /*
-                         * Data gambar
-                         */
-
-                        link.href =
-                            canvas.toDataURL(
-                                "image/png"
-                            );
-
-
-                        /*
-                         * Download
-                         */
-
-                        document.body.appendChild(
-                            link
-                        );
-
-
-                        link.click();
-
-
-                        link.remove();
-
-
-                        /*
-                         * Kembalikan tombol
-                         */
-
-                        downloadTableBtn.innerHTML =
-                            originalText;
-
-
-                        downloadTableBtn.disabled =
-                            false;
-
-
-                        /*
-                         * Popup
-                         */
-
-                        showDownloadSuccess();
-
-                    }
-                )
-                .catch(
-                    function (error) {
-
-                        console.error(
-                            error
-                        );
-
-
-                        downloadTableBtn.innerHTML =
-                            originalText;
-
-
-                        downloadTableBtn.disabled =
-                            false;
-
-
-                        alert(
-                            "Gagal membuat gambar tabel."
-                        );
-
-                    }
+                alert(
+                    "Gagal membuat gambar."
                 );
 
             }
         );
-
-
-        /* ==========================================
-           SUCCESS ALERT SIMPAN
-        ========================================== */
-
-        function showSuccessAlert() {
-
-            const oldAlert =
-                document.querySelector(
-                    ".professional-alert"
-                );
-
-
-            if (oldAlert) {
-
-                oldAlert.remove();
-
-            }
-
-
-            const overlay =
-                document.createElement(
-                    "div"
-                );
-
-
-            overlay.className =
-                "professional-alert";
-
-
-            overlay.innerHTML = `
-
-                <div class="professional-alert-box">
-
-                    <div class="professional-check">
-                        ✓
-                    </div>
-
-                    <div class="professional-alert-title">
-                        Berhasil!
-                    </div>
-
-                    <div class="professional-alert-text">
-                        Data berhasil diperbarui
-                        dan telah disimpan.
-                    </div>
-
-                    <button
-                        type="button"
-                        class="professional-alert-button"
-                        id="alertOkButton"
-                    >
-                        OK
-                    </button>
-
-                    <div class="professional-alert-copyright">
-                        © TEAM TARSIUS
-                    </div>
-
-                </div>
-
-            `;
-
-
-            document.body.appendChild(
-                overlay
-            );
-
-
-            requestAnimationFrame(
-                function () {
-
-                    overlay.classList.add(
-                        "show"
-                    );
-
-                }
-            );
-
-
-            const okButton =
-                document.getElementById(
-                    "alertOkButton"
-                );
-
-
-            okButton.addEventListener(
-                "click",
-                function () {
-
-                    closeProfessionalAlert(
-                        overlay
-                    );
-
-                }
-            );
-
-
-            overlay.addEventListener(
-                "click",
-                function (event) {
-
-                    if (
-                        event.target ===
-                        overlay
-                    ) {
-
-                        closeProfessionalAlert(
-                            overlay
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-
-
-        /* ==========================================
-           SUCCESS ALERT DOWNLOAD
-        ========================================== */
-
-        function showDownloadSuccess() {
-
-            const oldAlert =
-                document.querySelector(
-                    ".professional-alert"
-                );
-
-
-            if (oldAlert) {
-
-                oldAlert.remove();
-
-            }
-
-
-            const overlay =
-                document.createElement(
-                    "div"
-                );
-
-
-       overlay.className =
-                "professional-alert";
-
-
-            overlay.innerHTML = `
-
-                <div class="professional-alert-box">
-
-                    <div class="professional-check">
-                        ✓
-                    </div>
-
-                    <div class="professional-alert-title">
-                        Berhasil!
-                    </div>
-
-                    <div class="professional-alert-text">
-                        Gambar tabel berhasil dibuat
-                        dan siap disimpan.
-                    </div>
-
-                    <button
-                        type="button"
-                        class="professional-alert-button"
-                        id="downloadAlertOk"
-                    >
-                        OK
-                    </button>
-
-                    <div class="professional-alert-copyright">
-                        © TEAM TARSIUS
-                    </div>
-
-                </div>
-
-            `;
-
-
-            document.body.appendChild(
-                overlay
-            );
-
-
-            requestAnimationFrame(
-                function () {
-
-                    overlay.classList.add(
-                        "show"
-                    );
-
-                }
-            );
-
-
-            const okButton =
-                document.getElementById(
-                    "downloadAlertOk"
-                );
-
-
-            okButton.addEventListener(
-                "click",
-                function () {
-
-                    closeProfessionalAlert(
-                        overlay
-                    );
-
-                }
-            );
-
-
-            overlay.addEventListener(
-                "click",
-                function (event) {
-
-                    if (
-                        event.target ===
-                        overlay
-                    ) {
-
-                        closeProfessionalAlert(
-                            overlay
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-
-
-        /* ==========================================
-           CLOSE ALERT
-        ========================================== */
-
-        function closeProfessionalAlert(
-            overlay
-        ) {
-
-            if (!overlay) {
-
-                return;
-
-            }
-
-
-            overlay.classList.remove(
-                "show"
-            );
-
-
-            setTimeout(
-                function () {
-
-                    if (
-                        overlay.parentNode
-                    ) {
-
-                        overlay.remove();
-
-                    }
-
-                },
-                250
-            );
-
-        }
-
-
-        /* ==========================================
-           LOAD LOCAL STORAGE
-           
-           SEKALIGUS PERBAIKI NOMOR LAMA
-        ========================================== */
-
-        function loadSavedData() {
-
-            let changed = false;
-
-
-            Object.keys(
-                savedData
-            ).forEach(
-                function (key) {
-
-                    const index =
-                        Number(key);
-
-
-                    const data =
-                        savedData[key];
-
-
-                    const row =
-                        rows[index];
-
-
-                    if (
-                        !row ||
-                        !data
-                    ) {
-
-                        return;
-
-                    }
-
-
-                    const numberCell =
-                        row.querySelector(
-                            ".number-data"
-                        );
-
-
-                    const jackpotCell =
-                        row.querySelector(
-                            ".jackpot-data"
-                        );
-
-
-                    /* ==========================
-                       NOMOR
-                    ========================== */
-
-                    if (
-                        typeof data.number ===
-                        "string"
-                    ) {
-
-                        const fixedNumber =
-                            formatPhoneNumber(
-                                data.number
-                            );
-
-
-                        numberCell.textContent =
-                            fixedNumber;
-
-
-                        if (
-                            data.number !==
-                            fixedNumber
-                        ) {
-
-                            savedData[index].number =
-                                fixedNumber;
-
-
-                            changed = true;
-
-                        }
-
-                    }
-
-
-                    /* ==========================
-                       JACKPOT
-                    ========================== */
-
-                    if (
-                        typeof data.jackpot ===
-                        "string"
-                    ) {
-
-                        jackpotCell.textContent =
-                            data.jackpot;
-
-                    }
-
-                }
-            );
-
-
-            /*
-             * Simpan perbaikan
-             */
-
-            if (changed) {
-
-                localStorage.setItem(
-                    "jackpotData",
-                    JSON.stringify(
-                        savedData
-                    )
-                );
-
-            }
-
-        }
-
-
-        /* ==========================================
-           JALANKAN
-        ========================================== */
-
-        loadSavedData();
 
     }
 );
