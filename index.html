@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    >
+
+    <title>Daftar Database Jackpot</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="page">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="site-header">
+
+        <div class="header-reference"></div>
+
+    </header>
+
+
+    <!-- =========================
+         TABEL
+    ========================== -->
+
+    <table class="jackpot-table">
+
+        <colgroup>
+
+            <col class="c-no">
+            <col class="c-numbers">
+            <col class="c-deposit">
+            <col class="c-game">
+            <col class="c-jackpot">
+            <col class="c-status">
+
+        </colgroup>
+
+
+        <thead>
+
+            <tr>
+
+                <th>NO</th>
+                <th>NUMBERS</th>
+                <th>DEPOSIT</th>
+                <th>GAME</th>
+                <th>NOM JACKPOT</th>
+                <th>STATUS</th>
+
+            </tr>
+
+        </thead>
+
+
+        <tbody id="jackpotBody">
+
+            <tr>
+
+                <td>1</td>
+
+                <td class="number-data">
+                    838-xxxx-1479
+                </td>
+
+                <td>50K</td>
+
+                <td>
+                    SWEET BONANZA
+                </td>
+
+                <td class="jackpot-data">
+                    768.165.00
+                </td>
+
+                <td class="status-success">
+                    SUKSES
+                </td>
+
+            </tr>
+
+
+            <tr class="row-highlight">
+
+                <td>2</td>
+
+                <td class="number-data"></td>
+
+                <td>50K</td>
+
+                <td>
+                    MAHJONG WAYS 1/2
+                </td>
+
+                <td class="jackpot-data">
+                    1.100.630.00
+                </td>
+
+                <td class="status-process">
+                    PROSES
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>3</td>
+
+                <td class="number-data">
+                    822-xxxx-8478
+                </td>
+
+                <td>100K</td>
+
+                <td>
+                    BOUNTY HUNTERS
+                </td>
+
+                <td class="jackpot-data">
+                    2.870.654.00
+                </td>
+
+                <td class="status-success">
+                    SUKSES
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>4</td>
+
+                <td class="number-data">
+                    853-xxxx-5488
+                </td>
+
+                <td>50K</td>
+
+                <td>
+                    LUCKY NEKO
+                </td>
+
+                <td class="jackpot-data">
+                    572.342.00
+                </td>
+
+                <td class="status-success">
+                    SUKSES
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>5</td>
+
+                <td class="number-data">
+                    857-xxxx-2137
+                </td>
+
+                <td>//00</td>
+
+                <td>//</td>
+
+                <td class="jackpot-data">//</td>
+
+                <td class="status-failed">
+                    FAILD
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+
+    <!-- =========================
+         BUTTON AREA
+    ========================== -->
+
+    <div class="settings-area">
+
+        <button
+            type="button"
+            id="settingsBtn"
+            class="settings-btn"
+        >
+            ⚙️
+            <span>UBAH DATA</span>
+        </button>
+
+
+        <button
+            type="button"
+            id="downloadTableBtn"
+            class="download-btn"
+        >
+            📥
+            <span>DOWNLOAD GAMBAR TABEL</span>
+        </button>
+
+    </div>
+
+
+    <!-- =========================
+         EDIT PANEL
+    ========================== -->
+
+    <div
+        id="editPanel"
+        class="edit-panel"
+    >
+
+        <div class="edit-box">
+
+            <div class="edit-title">
+
+                <span>
+                    ⚙️ UBAH DATA JACKPOT
+                </span>
+
+                <button
+                    type="button"
+                    id="closeBtn"
+                    class="close-btn"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <!-- PILIH DATA -->
+
+            <div class="form-group">
+
+                <label for="rowSelect">
+                    PILIH DATA
+                </label>
+
+                <select id="rowSelect">
+
+                    <option value="0">
+                        NO 1
+                    </option>
+
+                    <option value="1">
+                        NO 2
+                    </option>
+
+                    <option value="2">
+                        NO 3
+                    </option>
+
+                    <option value="3">
+                        NO 4
+                    </option>
+
+                    <option value="4">
+                        NO 5
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- NUMBERS -->
+
+            <div class="form-group">
+
+                <label for="numberInput">
+                    NUMBERS
+                </label>
+
+                <input
+                    type="text"
+                    id="numberInput"
+                    placeholder="Contoh: 838-2140-1479"
+                    autocomplete="off"
+                >
+
+            </div>
+
+
+            <!-- JACKPOT -->
+
+            <div class="form-group">
+
+                <label for="jackpotInput">
+                    NOM JACKPOT
+                </label>
+
+                <input
+                    type="text"
+                    id="jackpotInput"
+                    inputmode="numeric"
+                    placeholder="Contoh: 1100630"
+                    autocomplete="off"
+                >
+
+                <small>
+                    Contoh: 1100630 → 1.100.630.00
+                </small>
+
+            </div>
+
+
+            <!-- SAVE -->
+
+            <button
+                type="button"
+                id="saveBtn"
+                class="save-btn"
+            >
+                SIMPAN PERUBAHAN
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!--
+    Library untuk membuat gambar PNG
+    dari tabel
+-->
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"
+></script>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
